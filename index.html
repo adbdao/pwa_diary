@@ -1759,110 +1759,22 @@ li{margin-left:1em;}
     }
     // var logo = ''
 
-    // 儲存今天的日記內容，導入「瀏覽器本地存儲」，並加上日期，並且顯示在div1
-    // 記錄頁面有無東西，預設有「備註說明」
-    btnSave1.onclick = () => {
-        var nf1 = txt1.value
-        if (!nf1) {
-            alert('請輸入日記內容')
-        } else {
-            // 防呆，查詢今天是否已有輸入資料？
-            // 先查詢全部內容
-            localDataAll('diary_')
-            // 顯示
-            if (DataAll) {
-                for (var i = 0; i < DataAll.length; i++) {
-                    // 找出符合日期的內容
-                    if (addToday() == DataAll[i].replace(/([^\,]+)\,.+/, '$1')) {
-                        DateLength = i + 1
-                        if (confirm('今天已有輸入資料，是否確定儲存？將覆蓋原有資料！\n要繼續編輯請按「取消」')) {
-                            localStorage['diary_' + (i + 1)] = addToday() + ',' + nf1.replace(/[^\,]+\,(.+)/, '$1')
-                            div1.innerHTML = '已儲存'
-                            // 清空輸入的資料，才不會重複儲存
-                            txt1.value = null
-                            // 清除使用過的陣列
-                            DataAll.length = 0
-                            break
-                        }
-                    }
-                    else {
-                        // 無今天的日記內容
-                        localStorage['diary_' + localNum('diary_')] = addToday() + ',' + nf1
-                        div1.innerHTML = '已儲存'
-                        // 清空輸入的資料，才不會重複儲存
-                        txt1.value = null
-                        // 清除使用過的陣列
-                        DataAll.length = 0
-                        break
-                    }
-                }
-            } else {
-                // 尚未輸入任何日記內容
-                localStorage['diary_' + localNum('diary_')] = addToday() + ',' + nf1
-                div1.innerHTML = '已儲存'
-                // 清空輸入的資料，才不會重複儲存
-                txt1.value = null
-                // 清除使用過的陣列
-                DataAll.length = 0
-            }
-        }
-    }
-
-    // 修改之前輸入的日記內容，並且重新儲存
-    btnSave2.onclick = () => {
-        var nf1 = txt1.value
+    // 查詢「指定日期」的「瀏覽器本地存儲」中的內容
+    function searchDate(Length) {
         if (!btnSearch2.value) {
             div1.innerHTML = '請先輸入指定日期'
         } else {
-            // 防呆
-            if (confirm('確定儲存？將覆蓋原有資料！')) {
-                if (DateLength == 0) {
-                    div1.innerHTML = '指定日期或者內容不存在'
-                } else {
-                    if (nf1.search(/^\d{4}\-\d{2}\-\d{2}\,.+/)) {
-                        localStorage['diary_' + DateLength] = nf1
-                    } else {
-                        localStorage['diary_' + localNum('diary_')] = btnSearch2.value + ',' + nf1
-                    }
-                    div1.innerHTML = '已儲存'
-                    // 清空輸入的資料，才不會重複儲存
-                    DateLength = 0
-                    txt1.value = null
-                }
-            }
-        }
-    }
-
-    // 查詢「瀏覽器本地存儲」中的所有的日記內容，全部導入陣列，並返回
-    btnSearchAll.onclick = () => {
-        // 查詢內容
-        localDataAll('diary_')
-        // 顯示
-        if (DataAll) {
-            div1.innerHTML = DataAll.join('<br>')
-            txt1.value = DataAll.join('\n')
-            CopyDiary()
-        } else {
-            div1.innerHTML = '尚未輸入任何日記內容'
-        }
-        // 清除使用過的陣列
-        DataAll.length = 0
-    }
-
-    // 查詢「指定日期」的「瀏覽器本地存儲」中的內容
-    var DateLength = 0
-    btnSearch1.onclick = () => {
-        if (btnSearch2.value) {
             // 先查詢全部內容
             localDataAll('diary_')
-            // 顯示
-            if (DataAll) {
+            // 如果有資料
+            if (DataAll.length > 0) {
                 for (var i = 0; i < DataAll.length; i++) {
                     // 找出符合日期的內容
-                    if (btnSearch2.value == DataAll[i].replace(/([^\,]+)\,.+/, '$1')) {
-                        div1.innerHTML = txt1.value = DataAll[i]
-                        // 記錄陣列位置，以便儲存時調用
-                        DateLength = i + 1
+                    if (btnSearch2.value == DataAll[i].replace(/(^\d{4}\-\d{2}\-\d{2})\,.+/, '$1')) {
+                        // 顯示，去除原有日期
+                        div1.innerHTML = txt1.value = DataAll[i].replace(/^\d{4}\-\d{2}\-\d{2}\,(.+)/, '$1')
+                        // 記錄「指定日期」位置，以便儲存時調用
+                        Length = i + 1
                         break
                     } else {
                         div1.innerHTML = '無相關的日記內容'
@@ -1873,28 +1785,113 @@ li{margin-left:1em;}
             }
             // 清除使用過的陣列
             DataAll.length = 0
-        } else {
-            div1.innerHTML = '請先輸入指定日期'
         }
     }
+    // 記錄「指定日期」位置，以便儲存時調用
+    var DateLength = 0
 
     // 查詢「今天」的「瀏覽器本地存儲」中的內容
     btnSearchToday.onclick = () => {
         // 先查詢全部內容
         localDataAll('diary_')
         // 顯示
-        if (DataAll) {
+        if (DataAll.length > 0) {
             for (var i = 0; i < DataAll.length; i++) {
                 // 找出今天的內容
-                if (addToday() == DataAll[i].replace(/([^\,]+)\,.+/, '$1')) {
-                    div1.innerHTML = txt1.value = DataAll[i]
-                    // 記錄陣列位置，以便儲存時調用
-                    DateLength = i + 1
+                if (addToday() == DataAll[i].replace(/(^\d{4}\-\d{2}\-\d{2})\,.+/, '$1')) {
+                    div1.innerHTML = txt1.value = DataAll[i].replace(/^\d{4}\-\d{2}\-\d{2}\,(.+)/, '$1')
+                    // // 記錄陣列位置，以便儲存時調用
+                    // DateLength = i + 1
                     break
                 } else {
-                    div1.innerHTML = '無相關的日記內容'
+                    div1.innerHTML = '今日無日記內容'
                 }
             }
+        } else {
+            div1.innerHTML = '尚未輸入任何日記內容'
+        }
+        // 清除使用過的陣列
+        DataAll.length = 0
+    }
+
+    // 儲存今天的日記內容，導入「瀏覽器本地存儲」，並加上日期，並且顯示在div1
+    // 記錄今天是否有日記內容
+    var saveToday = 0
+    btnSave1.onclick = () => {
+        var nf1 = txt1.value
+        if (!nf1) {
+            alert('請輸入日記內容')
+        } else {
+            // 先查詢全部內容
+            localDataAll('diary_')
+            // 顯示
+            for (var i = 0; i < DataAll.length; i++) {
+                // 查詢今天是否有日記內容
+                if (addToday() == DataAll[i].replace(/(^\d{4}\-\d{2}\-\d{2})\,.+/, '$1')) {
+                    saveToday = i + 1
+                    break
+                }
+            }
+            // 儲存
+            if (saveToday > 0) {
+                // 防呆，今天已有輸入日記內容
+                if (confirm('今天已有輸入資料，是否儲存？將覆蓋原有資料！\n要繼續編輯請按「取消」')) {
+                    localStorage['diary_' + saveToday] = addToday() + ',' + nf1
+                }
+            } else {
+                // 無今天的日記內容
+                localStorage['diary_' + localNum('diary_')] = addToday() + ',' + nf1
+            }
+
+            div1.innerHTML = '已儲存'
+            // 清空輸入的資料，才不會重複儲存
+            txt1.value = null
+            // 清除使用過的陣列
+            DataAll.length = 0
+            saveToday = 0
+        }
+    }
+
+    // 查詢「指定日期」的「瀏覽器本地存儲」中的內容
+    btnSearch1.onclick = () => {
+        searchDate()
+    }
+
+    // 修改之前輸入的日記內容，並且重新儲存
+    btnSave2.onclick = () => {
+        var nf1 = txt1.value
+        if (!nf1) {
+            alert('請輸入日記內容')
+        } else {
+            // 查詢「指定日期」的「瀏覽器本地存儲」中的內容
+            searchDate(DateLength)
+
+            if (DateLength < 1) {
+                div1.innerHTML += '指定日期無相關的日記內容'
+                localStorage['diary_' + localNum('diary_')] = btnSearch2.value + ',' + nf1
+            } else {
+                // 防呆
+                if (confirm('確定儲存？將覆蓋原有資料！')) {
+                    localStorage['diary_' + DateLength] = nf1
+                }
+            }
+            div1.innerHTML = '已儲存'
+            // 清空輸入的資料，才不會重複儲存
+            txt1.value = null
+            DateLength = 0
+        }
+    }
+
+    // 查詢「瀏覽器本地存儲」中的所有的日記內容，全部導入陣列，並返回
+    btnSearchAll.onclick = () => {
+        // 查詢內容
+        localDataAll('diary_')
+        // 顯示
+        if (DataAll.length > 0) {
+            div1.innerHTML = DataAll.join('<br>')
+            txt1.value = DataAll.join('\n')
+            // 複製
+            CopyDiary()
         } else {
             div1.innerHTML = '尚未輸入任何日記內容'
         }
@@ -1918,10 +1915,6 @@ li{margin-left:1em;}
                             break
                         }
                     }
-                    // 檢查是否完成
-                    // if (localNum(name) == 1) {
-                    //     alert('刪除完畢')
-                    // }
                 }
             }
         }

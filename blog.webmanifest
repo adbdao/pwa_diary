@@ -3,7 +3,7 @@
     "short_name": "在網頁上寫日記",
     "description": "在網頁上寫日記",
     "lang": "zh-Hant-TW",
-    "version": "1.0",
+    "version": "2.0",
     "author": "DaoChung",
     "icons": [
         {
@@ -26,6 +26,6 @@
     "scope": "/pwa_diary/",
     "start_url": "/pwa_diary/",
     "id": "/pwa_diary/",
-    "theme_color": "#777777",
-    "background_color": "#222222"
+    "theme_color": "#333333",
+    "background_color": "#f5deb3"
 }
