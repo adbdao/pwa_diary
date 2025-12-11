@@ -1,10 +1,10 @@
 {
     "name": "pwa_diary",
-    "short_name": "在網頁上寫日記",
-    "description": "在網頁上寫日記",
+    "short_name": "我的網頁日記",
+    "description": "我的網頁日記",
     "lang": "zh-Hant-TW",
-    "version": "2.0",
-    "author": "DaoChung",
+    "version": "3.0",
+    "author": "DaoChung and Google AI",
     "icons": [
         {
             "src": "icons/diary48.png",

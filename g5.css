@@ -1,0 +1,227 @@
+/* 共用樣式 */
+body {
+    font-family: sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+h1, h2, p {
+    color: inherit; /* 確保標題繼承 body 顏色 */
+}
+
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* 月曆容器樣式 */
+.calendar-container {
+    flex-basis: 300px;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 8px;
+    /* transition: background-color 0.3s, color 0.3s; */ /* 不需要額外的 transition */
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day-header {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.day {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.day:hover {
+    background-color: #aaa;
+}
+
+.day.today {
+    border: 2px solid;
+}
+
+.day.has-entry {
+    color: red;
+    font-weight: bold;
+}
+
+.day.selected {
+    background-color: #888;
+    color: white;
+}
+
+/* 編輯區樣式 */
+.editor-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#diary-entry, #search-input {
+    min-height: 200px; /* 僅日記區塊需要 */
+    padding: 10px;
+    margin-bottom: 10px;
+    resize: vertical;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: sans-serif; /* 確保輸入框字體一致 */
+}
+
+.button-group, .search-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.2s, background-color 0.3s, color 0.3s; /* 增加主題切換的 transition */
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#search-input {
+    min-height: auto; /* 重置搜尋框的高度 */
+    flex-grow: 1;
+}
+
+.results-area {
+    margin-top: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    border-top: 1px solid; /* 使用 border-color 來繼承主題顏色 */
+    padding-top: 10px;
+}
+
+/* 淺色主題 (預設) */
+body {
+    background-color: tan;
+    color: #000;
+}
+
+.calendar-container, #diary-entry, #search-input, .results-area {
+    border-color: #000;
+}
+
+.day:hover {
+    background-color: lightskyblue;
+}
+
+.day.today {
+    border-color: #000;
+}
+
+/* 深色主題 */
+body.dark-mode {
+    background-color: #121212;
+    color: bisque;
+}
+
+body.dark-mode .calendar-container, 
+body.dark-mode #diary-entry, 
+body.dark-mode #search-input,
+body.dark-mode .results-area {
+    border-color: #e0e0e0;
+}
+
+body.dark-mode .day:hover {
+    background-color: #555;
+}
+
+body.dark-mode .day.today {
+    border-color: #e0e0e0;
+}
+
+body.dark-mode #diary-entry, body.dark-mode #search-input {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode button {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+body.dark-mode button:hover {
+    background-color: #007bff;
+}
+
+
+/* --- RWD 自適應樣式 (Media Queries) --- */
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .calendar-container {
+        flex-basis: auto;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    button, #search-input {
+        flex: 1 1 auto;
+    }
+}
+
+/* 搜尋結果關鍵字反白樣式，確保在深色模式下也清晰可見 */
+.highlight {
+    background-color: magenta;
+    color: black; /* 確保黑色文字在黃色背景上 */
+    font-weight: bold;
+}
