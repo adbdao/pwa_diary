@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的網頁日記</title>
     <link rel="stylesheet" href="g5.css">
+
+    <link rel="icon" href="icons/diary48.png" />
+    <link rel="canonical" href="https://adbdao.github.io/pwa_diary/" />
+    <link rel="manifest" href="/pwa_diary/blog.webmanifest">
+    <base target="_blank">
+
 </head>
-<body>
+
+<body ontouchstart>
     <div class="container">
         <header>
             <h1>我的網頁日記</h1>
             <button id="theme-toggle">切換主題</button>
+            <a href="https://github.com/adbdao/pwa_diary" target="_blank"><input type="button" class="lsg"
+                    value="安裝說明" /></a>
+            <button id="addPWA" class="nf" disabled>點此安裝APP</button>
+            <button id="reload" class="nf" onclick="javascript:window.location.reload()">重整頁面</button>
         </header>
 
         <div class="main-content">
@@ -49,7 +61,57 @@
             </section>
         </div>
     </div>
-    
+
+    <script>
+        window.addEventListener('load', function () {
+            var btnSave = document.getElementById('addPWA')
+            var savedPrompt
+            // 註冊serviceWorker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register(
+                    // Github路徑
+                    '/pwa_by/pwabuilder-sw.js',
+                    { scope: '/pwa_by/' }
+                )
+                    .then(function (registration) {
+                        console.log('ServiceWorker registration successful with scope:', registration.scope)
+                        // alert('安裝成功')
+                    }).catch(function (err) {
+                        console.log('ServiceWorker registration failed:', err)
+                        // alert('安裝失敗，請重新安裝')
+                    })
+            }
+            // 安裝按鈕
+            window.addEventListener('beforeinstallprompt', function (e) {
+                e.preventDefault()
+                btnSave.removeAttribute('disabled')
+                savedPrompt = e
+                // 我設定true
+                return true
+                // return false
+            })
+            // 安裝按鈕
+            btnSave.addEventListener('click', function () {
+                if (savedPrompt !== undefined) {
+                    savedPrompt.prompt()
+
+                    savedPrompt.userChoice.then(function (result) {
+
+                        if (result.outcome == 'dismissed') {
+                            // alert('使用者關閉主營幕')
+                            console.log('User dismissed homescreen install')
+                        } else {
+                            // alert('使用者加入主營幕')
+                            console.log('User added to homescreen')
+                        }
+                        savedPrompt = null
+                    })
+                }
+            })
+        })
+    </script>
+
     <script src="g5.js"></script>
 </body>
+
 </html>
