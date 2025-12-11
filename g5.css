@@ -10,10 +10,10 @@ body {
 .container {
     max-width: 1200px;
     margin: 10px auto;
-    padding: 5px;
+    padding: 2px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 header {
@@ -30,14 +30,14 @@ h1, h2, p {
 
 .main-content {
     display: flex;
-    gap: 5px;
+    gap: 2px;
 }
 
 /* 月曆容器樣式 */
 .calendar-container {
     flex-basis: 300px;
     border: 1px solid;
-    padding: 5px;
+    padding: 1px;
     border-radius: 8px;
     /* transition: background-color 0.3s, color 0.3s; */ /* 不需要額外的 transition */
 }
@@ -52,7 +52,7 @@ h1, h2, p {
 .calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    gap: 2px;
     text-align: center;
 }
 
@@ -86,7 +86,7 @@ h1, h2, p {
 }
 
 .day.selected {
-    background-color: #888;
+    background-color: #88a;
     color: white;
 }
 
@@ -175,7 +175,12 @@ body.dark-mode .results-area {
 }
 
 body.dark-mode .day:hover {
-    background-color: #555;
+    background-color: SeaGreen;
+}
+
+body.dark-mode .day.selected {
+    background-color: DarkOliveGreen;
+    color: white;
 }
 
 body.dark-mode .day.today {
