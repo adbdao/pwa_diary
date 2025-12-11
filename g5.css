@@ -13,7 +13,7 @@ body {
     padding: 5px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 header {
@@ -30,7 +30,7 @@ h1, h2, p {
 
 .main-content {
     display: flex;
-    gap: 10px;
+    gap: 5px;
 }
 
 /* 月曆容器樣式 */
