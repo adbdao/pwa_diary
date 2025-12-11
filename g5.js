@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let allContentString = '';
         let matchCount = 0;
 
-        Object.keys(diaries).sort().forEach(date => {
+        Object.keys(diaries).sort().reverse().forEach(date => {
             let content = diaries[date];
             if (searchTerm) {
                 const regex = new RegExp(`(${searchTerm})`, 'gi');
