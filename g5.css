@@ -98,7 +98,7 @@ h1, h2, p {
 }
 
 #diary-entry, #search-input {
-    min-height: 250px; /* 僅日記區塊需要 */
+    min-height: 270px; /* 僅日記區塊需要 */
     padding: 10px;
     margin-bottom: 10px;
     resize: vertical; /* 用户可调整元素的高度 */
