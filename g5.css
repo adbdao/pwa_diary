@@ -98,15 +98,16 @@ h1, h2, p {
 }
 
 #diary-entry, #search-input {
-    min-height: 200px; /* 僅日記區塊需要 */
+    min-height: 250px; /* 僅日記區塊需要 */
     padding: 10px;
     margin-bottom: 10px;
-    resize: vertical;
+    resize: vertical; /* 用户可调整元素的高度 */
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
     font-family: sans-serif; /* 確保輸入框字體一致 */
+    font-size: 1.3em;
 }
 
 .button-group, .search-group {
@@ -114,6 +115,13 @@ h1, h2, p {
     gap: 10px;
     margin-bottom: 10px;
     flex-wrap: wrap;
+}
+/* 刪除按鈕改紅色系 */
+#clear-all-btn,#delete-btn{
+    background-color: #df4b00;
+}
+#clear-all-btn:hover,#delete-btn:hover{
+    background-color: #a35600;
 }
 
 button {
@@ -226,7 +234,7 @@ body.dark-mode button:hover {
 
 /* 搜尋結果關鍵字反白樣式，確保在深色模式下也清晰可見 */
 .highlight {
-    background-color: magenta;
+    background-color: hotpink;
     color: black; /* 確保黑色文字在黃色背景上 */
     font-weight: bold;
 }

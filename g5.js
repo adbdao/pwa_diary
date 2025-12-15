@@ -163,11 +163,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     deleteBtn.addEventListener('click', () => {
+        if (diaryEntryEl.value){
         if (confirm('確定要刪除這天的日記嗎？')) {
+        if (confirm('真的決定刪除？此操作不可逆！')) {
             deleteDiaryEntry(formatDate(selectedDate));
             alert('日記已刪除！');
         }
-    });
+        }
+        }else{
+            alert('請輸入日記內容')
+        }
+        });
 
     editTodayBtn.addEventListener('click', () => {
         selectedDate = new Date();
@@ -238,11 +244,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearAllBtn.addEventListener('click', () => {
         if (confirm('確定要清除所有我的日記嗎？此操作不可逆！')) {
+        if (confirm('不後悔嗎？真的決定刪除？')) {
+        if (confirm('最後一次問你：確定要刪除所有我的日記')) {    
             localStorage.removeItem(DIARY_STORAGE_KEY);
             alert('所有日記已清除。');
             renderCalendar();
             diaryEntryEl.value = '';
             resultsArea.innerHTML = '';
+        }
+        }
         }
     });
 
