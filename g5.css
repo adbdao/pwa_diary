@@ -98,7 +98,7 @@ h1, h2, p {
 }
 
 #diary-entry, #search-input {
-    min-height: 270px; /* 僅日記區塊需要 */
+    min-height: 260px; /* 僅日記區塊需要 */
     padding: 10px;
     margin-bottom: 10px;
     resize: vertical; /* 用户可调整元素的高度 */
@@ -118,7 +118,7 @@ h1, h2, p {
 }
 /* 刪除按鈕改紅色系 */
 #clear-all-btn,#delete-btn{
-    background-color: #df4b00;
+    background-color: #cf4b00;
 }
 #clear-all-btn:hover,#delete-btn:hover{
     background-color: #a35600;
