@@ -109,6 +109,7 @@ h1, h2, p {
     box-sizing: border-box;
     font-family: sans-serif; /* 確保輸入框字體一致 */
     font-size: 1.3em;
+    background-color: linen;
 }
 
 .button-group, .search-group {
@@ -198,7 +199,7 @@ body.dark-mode .day.today {
 
 body.dark-mode #diary-entry, body.dark-mode #search-input {
     background-color: #1e1e1e;
-    color: #e0e0e0;
+    color: wheat;
 }
 
 body.dark-mode button {
