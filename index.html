@@ -54,6 +54,14 @@
                     <input type="text" id="search-input" placeholder="搜尋日記內容...">
                     <button id="search-btn">搜尋</button>
                     <button id="clear-all-btn">清除所有我的日記</button>
+
+                    
+                    <!-- 匯出按鈕 -->
+                    <button id="export-btn">全部匯出</button>
+
+                    <!-- 匯入按鈕與隱藏的檔案 input -->
+                    <button id="import-btn">全部匯入</button>
+                    <input type="file" id="import-file" accept=".txt" style="display: none;" />
                 </div>
                 <div class="results-area" id="results-area">
                     <!-- 搜尋結果或所有日記內容將顯示在這裡 -->
@@ -111,7 +119,7 @@
         })
     </script>
 
-    <script src="g5.js"></script>
+    <script src="g10.js"></script>
 </body>
 
 </html>
