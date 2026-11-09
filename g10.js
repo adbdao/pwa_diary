@@ -300,16 +300,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         fragment.appendChild(statsEl);
 
         // 統計區塊下方加一道分隔線，與日記清單區隔
-        const topHr = document.createElement('hr');
-        fragment.appendChild(topHr);
+        // const topHr = document.createElement('hr');
+        // fragment.appendChild(topHr);
 
         keys.forEach(date => {
             let content = diaries[date];
             if (searchTerm) {
+                // 加上 'i' 旗標（ignore case），讓正規表達式不分大小寫
                 const regex = new RegExp(`(${searchTerm})`, 'gi');
+
+                // 用原內容來計算符合次數與進行替換
                 const matches = content.match(regex);
                 if (matches) {
                     matchCount += matches.length;
+                    // 使用正規表達式替換，並保留日記原本的大小寫外觀
                     content = content.replace(regex, '<span class="highlight">$1</span>');
                 }
             }
@@ -358,13 +362,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         try {
             const diaries = await getAllDiaries();
+            // 將搜尋關鍵字轉成小寫
+            const lowerSearchTerm = searchTerm.toLowerCase();
             const filteredDiaries = Object.keys(diaries)
-                .filter(date => diaries[date].includes(searchTerm))
+                // 檢查時把日記內容轉成小寫來比對，實現不分大小寫
+                .filter(date => diaries[date].toLowerCase().includes(lowerSearchTerm))
                 .reduce((obj, key) => {
                     obj[key] = diaries[key];
                     return obj;
                 }, {});
 
+            // 注意：這裡傳入原本的 searchTerm 給 displayDiariesList，
+            // 這樣畫面上高亮顯示（Highlight）時才能保留原本的大小寫樣貌
             displayDiariesList(filteredDiaries, searchTerm);
         } catch (error) {
             console.error('搜尋失敗:', error);

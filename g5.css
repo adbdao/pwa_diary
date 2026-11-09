@@ -149,7 +149,7 @@ button:hover {
     margin-top: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;
-    border-top: 1px solid; /* 使用 border-color 來繼承主題顏色 */
+   /* border-top: 1px solid;  使用 border-color 來繼承主題顏色 */
     padding-top: 10px;
 }
 
@@ -246,11 +246,11 @@ body.dark-mode button:hover {
 .diary-card {
     background-color: wheat; /* 淺灰色背景 */
     border-radius: 8px;        /* 邊角修圓 (數值越大越圓) */
-    padding: 12px 16px;        /* 內部空間 (讓文字不要貼齊邊緣) */
+    padding: 6px 16px;        /* 內部空間 (讓文字不要貼齊邊緣) */
     margin-bottom: 12px;       /* 卡片與卡片之間的間距 */
 }
 
 /* 如果是深色模式 (Dark Mode)，你可以額外設定深色下的卡片背景色，避免太刺眼 */
 body.dark-mode .diary-card {
-    background-color: #303030; 
+    background-color: #222222; 
 }
