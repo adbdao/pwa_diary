@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const currentContent = await getDiary(dateStr);
 
             if (!currentContent) {
-                alert('這天沒有記錄日記，無需刪除。');
+                alert('這天沒有記錄日記，無需刪除！');
                 return;
             }
 
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (error) {
             console.error('刪除失敗:', error);
-            alert('刪除過程發生錯誤。');
+            alert('刪除過程發生錯誤！');
         }
     });
 
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayDiariesList(diaries);
         } catch (error) {
             console.error('顯示全部失敗:', error);
-            alert('無法載入日記清單。');
+            alert('無法載入日記清單！');
         }
     });
 
@@ -377,14 +377,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayDiariesList(filteredDiaries, searchTerm);
         } catch (error) {
             console.error('搜尋失敗:', error);
-            alert('搜尋過程發生錯誤。');
+            alert('搜尋過程發生錯誤！');
         }
     });
 
     clearAllBtn.addEventListener('click', async () => {
-        if (confirm('確定要清除所有我的日記嗎？此操作不可逆！')) {
+        if (confirm('確定要清除所有日記嗎？此操作不可逆！')) {
             if (confirm('不後悔嗎？真的決定刪除？')) {
-                if (confirm('最後一次問你：確定要刪除所有我的日記')) {
+                if (confirm('最後一次問你：確定要刪除所有日記？')) {
                     try {
                         await clearAllDiariesFromDB();
                         alert('所有日記已清除。');
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // 匯出日記成 日記6.txt（倒序：最新日期在第一行）
+    // 匯出日記成 日記.txt（倒序：最新日期在第一行）
     async function exportDiariesToFile() {
         const diaries = await getAllDiaries();
         const keys = Object.keys(diaries).sort().reverse();
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = '日記6.txt';
+        a.download = '日記.txt';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -434,10 +434,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     alert('目前沒有任何日記可以匯出。');
                     return;
                 }
-                alert('「日記6.txt」匯出成功！');
+                alert('「日記.txt」匯出成功！');
             } catch (error) {
                 console.error('匯出失敗:', error);
-                alert('匯出日記時發生錯誤。');
+                alert('匯出日記時發生錯誤！');
             }
         });
     }
@@ -452,13 +452,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const file = event.target.files[0];
             if (!file) return;
 
-            const confirmImport = confirm('匯入將會處理現有資料。請問是否要先匯出目前的舊資料為「日記6.txt」再進行匯入？');
+            const confirmImport = confirm('匯入會覆蓋現有資料。是否先匯出舊資料為「日記.txt」再進行匯入？');
 
             try {
                 if (confirmImport) {
                     await exportDiariesToFile();
                 } else {
-                    const forceOverwrite = confirm('確定要在不備份的情況下直接匯入嗎？');
+                    const forceOverwrite = confirm('確定不備份就直接匯入嗎？');
                     if (!forceOverwrite) {
                         importFile.value = '';
                         return;
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         alert(`匯入完成！共處理了 ${count} 筆符合格式的日記。`);
                     } catch (error) {
                         console.error('匯入解析失敗:', error);
-                        alert('檔案格式錯誤或匯入失敗。');
+                        alert('檔案格式錯誤或匯入失敗！');
                     } finally {
                         importFile.value = '';
                     }
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 reader.readAsText(file, 'UTF-8');
             } catch (error) {
                 console.error('匯入流程錯誤:', error);
-                alert('匯入過程發生錯誤。');
+                alert('匯入過程發生錯誤！');
                 importFile.value = '';
             }
         });

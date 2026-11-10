@@ -252,5 +252,5 @@ body.dark-mode button:hover {
 
 /* 如果是深色模式 (Dark Mode)，你可以額外設定深色下的卡片背景色，避免太刺眼 */
 body.dark-mode .diary-card {
-    background-color: #222222; 
+    background-color: #232323; 
 }
